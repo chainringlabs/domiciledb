@@ -1,24 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": [
-		"config:recommended",
-		":disableRateLimiting",
-		":dependencyDashboard",
-		":semanticCommits",
-		":enablePreCommit",
-		"docker:enableMajor",
-		":timezone(America/New_York)"
-	],
-	"schedule": [
-		"after 10pm every weekday",
-		"before 5am every weekday",
-		"every weekend"
-	],
-	"prConcurrentLimit": 3,
-	"prCreation": "immediate",
-	"rebaseWhen": "behind-base-branch",
-	"automerge": true,
-	"platformAutomerge": true,
+	"extends": ["github>tgrecojr/renovate-config"],
 	"customManagers": [
 		{
 			"customType": "regex",
@@ -31,10 +13,6 @@
 		}
 	],
 	"packageRules": [
-		{
-			"matchCategories": ["docker"],
-			"pinDigests": true
-		},
 		{
 			"description": "Keep the Docker builder Node (node:<major>) and the distroless runtime Node (nodejs<major>) in one PR. Renovate proposes; it does not guarantee: the regex manager's node-version lookup waits for the first LTS-flagged release while the docker and github-releases lookups flip on the schedule date, so this group can open with the runtime missing. tests/unit/node-lockstep.test.ts and the Docker smoke are the gate.",
 			"matchDepNames": ["node"],
@@ -49,49 +27,9 @@
 			"groupSlug": "node-base-images"
 		},
 		{
-			"description": "Auto-merge non-major updates for stable images",
-			"matchDatasources": ["docker"],
-			"matchUpdateTypes": ["minor", "patch", "digest"],
-			"automerge": true,
-			"automergeType": "branch"
-		},
-		{
-			"description": "Group all minor and patch updates together",
-			"matchUpdateTypes": ["minor", "patch"],
-			"groupName": "all non-major dependencies",
-			"groupSlug": "all-minor-patch",
-			"automerge": true
-		},
-		{
 			"description": "PLATFORM-OPS-012: package.json overrides are caret security floors. Renovate's default in-range update names the package on the npm command line, which npm refuses with EOVERRIDE, failing the lock update for the whole group. With replace, Renovate touches an override only when a release falls outside its range; in-range releases arrive through lock maintenance.",
 			"matchDepTypes": ["overrides"],
 			"rangeStrategy": "replace"
-		},
-		{
-			"description": "Disable auto-merge for major updates - need review",
-			"matchUpdateTypes": ["major"],
-			"automerge": false,
-			"labels": ["major-update"]
-		},
-		{
-			"description": "Auto-merge digest updates daily",
-			"matchUpdateTypes": ["digest"],
-			"automerge": true,
-			"schedule": ["at any time"],
-			"minimumReleaseAge": null
-		},
-		{
-			"description": "Stability period for minor/patch before auto-merge",
-			"matchUpdateTypes": ["minor", "patch"],
-			"minimumReleaseAge": "3 days"
 		}
-	],
-	"vulnerabilityAlerts": {
-		"enabled": true,
-		"labels": ["security"]
-	},
-	"lockFileMaintenance": {
-		"enabled": true,
-		"schedule": ["before 4am on monday"]
-	}
+	]
 }
