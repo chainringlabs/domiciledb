@@ -185,6 +185,11 @@ capture through the native picker, which is the only camera path.
 
 ## Container and CI
 
+`.npmrc` applies two supply-chain settings to every npm install (laptop, CI, image build):
+`min-release-age=7`, so npm resolves no version published in the last seven days, and
+`ignore-scripts=true`, so dependency install scripts never run (sharp and better-sqlite3 ship
+prebuilt binaries). The Dockerfile copies it in before `npm ci`.
+
 `Dockerfile`: `node:26-trixie-slim` builder (`npm ci`, `next build --webpack`, standalone output)
 and `gcr.io/distroless/nodejs26-debian13` runtime on the same Debian release so native addons
 (better-sqlite3, sharp/libvips) link; both digest-pinned. The runtime copies `.next/standalone`,
