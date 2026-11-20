@@ -216,7 +216,7 @@ same Node major. The `@types/node` major may lag that major but never exceed it,
 would let code reference APIs the deployed runtime lacks. A unit test
 (`tests/unit/node-lockstep.test.ts`) reads `Dockerfile`, the workflow files, and `package.json` and
 fails when they disagree, so a partial Node bump turns the PR red in the unit job before the Docker
-job runs. `renovate.json` groups and automerges non-majors after three days, labels majors, pins
+job runs. `renovate.json` extends the shared preset `github>tgrecojr/renovate-config`, which groups and automerges non-majors after seven days, labels majors, pins
 digests, and groups the three Node pins and `@types/node` majors into one "node base images" update;
 a custom manager reads the distroless image's major out of its name so Renovate can propose it. That
 manager is a convenience, not the guarantee, for two reasons recorded in the decisions table: its
