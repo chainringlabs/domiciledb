@@ -74,6 +74,11 @@ grounds the insurance model (Coverage B – Personal Property = $456,750).
 - Store **relative** media paths in the DB (mount-independent restore).
 - Files < 300 lines, functions < 50 lines. TS strict; lint + format clean before commit.
 - No secrets in git. `.env` is ignored; `env.example` is the committed template.
+- **`.npmrc` sets `min-release-age=7` and `ignore-scripts=true`.** npm resolves no
+  version published in the last 7 days, so a clean lockfile regeneration fails
+  with `ETARGET` if `package.json` requires one that new; wait, or pass
+  `--min-release-age=0` for a reviewed security fix. Dependency install scripts
+  and `npm run` pre/post hooks do not run.
 - **After changing dependencies**, regenerate the lockfile cleanly:
   `rm -rf node_modules package-lock.json && npm install`. An incremental
   `npm install` on macOS leaves the lock linux-incomplete for sharp's optional
