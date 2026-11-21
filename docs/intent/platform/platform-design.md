@@ -200,8 +200,9 @@ docs, and the spec files out of the context.
 
 CI (`ci.yml`): lint (`biome check`), typecheck, unit with the coverage gate (100% statements, lines,
 functions and 90% branches on `coverage.ts`, `money.ts`, `report.ts`), build, e2e on a Pixel 7
-profile with `AI_FAKE=1`; a second job runs the integration suite against a RustFS container; a
-reusable `supply-chain.yml` runs `npm ci --ignore-scripts`, `npm audit signatures`, Socket when its
+profile with `AI_FAKE=1`; a second job runs the integration suite against a RustFS container; the
+organization's shared scan (`chainringlabs/ci`, called at a pinned commit with this repository's
+Node major) runs `npm ci --ignore-scripts`, `npm audit signatures`, Socket when its
 secret exists, and OSV-Scanner in PR-diff mode (fail only on introduced vulnerabilities) or absolute
 mode on main and weekly. `docker-publish.yml` builds the image on PRs and on main or `v*` tags,
 gated on the scan, and then smoke-boots it before anything leaves the runner: the built image is

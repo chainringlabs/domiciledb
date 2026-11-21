@@ -1,4 +1,4 @@
-# Suppressions for `osv-scanner` (see .github/workflows/supply-chain.yml).
+# Suppressions for `osv-scanner` (read by the shared scan in chainringlabs/ci).
 #
 # Keep this file as small as possible, and always prefer fixing the dependency
 # over silencing the finding. Every entry needs a reason and an `effectiveUntil`

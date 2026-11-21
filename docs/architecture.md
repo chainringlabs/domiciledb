@@ -134,7 +134,7 @@ changed media, and writes a status file surfaced in the UI; it's a clean no-op w
 
 CI (`.github/workflows/ci.yml`): an `app` job (`lint → format → typecheck → coverage-gated unit →
 build → e2e`), a **RustFS** S3 integration job, and a reusable **supply-chain** scan. The supply
-chain (`supply-chain.yml`) runs **OSV-Scanner**, **Socket**, and `npm audit signatures`.
+chain (the organization's shared scan in `chainringlabs/ci`) runs **OSV-Scanner**, **Socket**, and `npm audit signatures`.
 `docker-publish.yml` builds the image (validate on PRs; on `main`/tags it pushes to GHCR, signs it
 with **cosign** keyless, and attaches **SBOM + build-provenance attestations**); `ghcr-retention.yml`
 prunes old versions. **Renovate** (`renovate.json`) keeps dependencies current. This mirrors the
