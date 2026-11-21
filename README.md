@@ -53,7 +53,7 @@ with a real cert.
 ## Quick start (development)
 
 ```bash
-git clone git@github.com:tgrecojr/domiciledb.git && cd domiciledb
+git clone git@github.com:chainringlabs/domiciledb.git && cd domiciledb
 cp env.example .env            # adjust as needed (all keys are optional)
 npm install
 npm run dev                    # http://localhost:3000
@@ -70,7 +70,7 @@ docker run -d -p 3000:3000 -v domiciledb-data:/data --name domiciledb domiciledb
 # Behind your reverse proxy / VPN. Mount a volume at /data to persist everything.
 ```
 
-A published image is available at `ghcr.io/tgrecojr/domiciledb` (built and pushed by CI). The
+A published image is available at `ghcr.io/chainringlabs/domiciledb` (built and pushed by CI). The
 container runs as a non-root user (uid 65532); the mounted volume must be writable by that uid.
 
 ## Commands
