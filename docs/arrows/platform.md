@@ -52,7 +52,7 @@ test.
 - src/types/css.d.ts
 - Dockerfile, .dockerignore, next.config.ts, tsconfig.json, biome.jsonc, postcss.config.mjs,
   package.json, renovate.json, osv-scanner.toml, env.example,
-  .github/workflows/ci.yml, supply-chain.yml, docker-publish.yml, ghcr-retention.yml
+  .github/workflows/ci.yml, docker-publish.yml, ghcr-retention.yml (the scan is the shared workflow in `chainringlabs/ci`, called from the first two)
 
 ## Architecture
 
@@ -129,9 +129,9 @@ which cannot carry comments, OPS-006, PWA-010) or gaps whose fix lands in anothe
    (`globals.css:11`). The sticky header ignores `safe-area-inset-top` (`app-shell.tsx:22`).
 9. **The native picker is the only camera path**; no `getUserMedia` viewfinder exists or is
    planned, and the docs no longer describe one.
-10. **Two unpinned supply-chain inputs** in an otherwise digest-pinned pipeline:
-    `rustfs/rustfs:latest` (`ci.yml:89`) and `@socketsecurity/cli@latest`
-    (`supply-chain.yml:46`).
+10. **One unpinned supply-chain input** in an otherwise digest-pinned pipeline:
+    `rustfs/rustfs:latest` (`ci.yml:89`). The Socket CLI is pinned to an exact version in the
+    shared scan.
 11. **`.dockerignore` negates a dotted `.env.example`** that does not exist; the real template is
     `env.example` and lands in the build context (placeholders only).
 12. **Body limit vs. upload knobs**: `bodySizeLimit: "50mb"` is the binding per-request cap and
